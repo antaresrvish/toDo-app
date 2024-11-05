@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from 'vue';
-
+import { useRouter } from 'vue-router';
 const isOpen = ref(false);
-//https://coolors.co/272d2d-a39ba8-b8c5d6-edf5fc-23ce6b
+//https://coolors.co/272d2d-a39ba8-b8c5d6-edf5fc-23ce
+const router = useRouter();
+const logout = () => {
+  localStorage.removeItem('token');
+  router.push('/login');
+};
 </script>
+
 
 <template>
   <nav class="bg-[#272D2D] shadow">
@@ -16,22 +22,6 @@ const isOpen = ref(false);
         </svg>
         ToDo
       </a>
-      <div class="hidden sm:flex items-center">
-        <a href="/"
-          class="text-white text-sm font-inter font-bold flex items-center hover:bg-gray-600 duration-300 p-2 mx-2 rounded-lg">
-          Upcoming
-          <div class="bg-[#9a7aae] text-xs px-2 py-1 rounded-full ml-1 w-6 h-6 flex items-center justify-center">
-            12
-          </div>
-        </a>
-        <a href="/"
-          class="text-white text-sm font-inter font-bold flex items-center hover:bg-gray-600 duration-300 p-2 mx-2 rounded-lg">
-          Today
-          <div class="bg-[#23CE6B] text-xs px-2 py-1 rounded-full ml-1 w-6 h-6 flex items-center justify-center">
-            9
-          </div>
-        </a>
-      </div>
 
       <div class="flex items-center">
         <button @click="isOpen = !isOpen" class="text-white sm:hidden focus:outline-none">
@@ -42,7 +32,7 @@ const isOpen = ref(false);
               stroke-linejoin="round" />
           </svg>
         </button>
-        <a href="/"
+        <a  @click="logout()"
           class="hidden sm:flex text-white text-sm font-inter font-bold items-center hover:bg-gray-600 hover:text-red-500 duration-300 p-2 mx-2 rounded-lg">
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path
@@ -69,7 +59,7 @@ const isOpen = ref(false);
           9
         </div>
       </a>
-      <a href="/"
+      <a @click="logout()"
         class="text-white text-sm font-inter font-bold flex items-center hover:bg-gray-600 hover:text-red-500 duration-300 p-2 mx-2 rounded-lg">
         Logout
       </a>
