@@ -4,19 +4,19 @@
         <div
             class="bg-gray-50 p-6 rounded-b-lg md:rounded-e-none md:rounded-l-lg border shadow-xl justify-center flex flex-col w-96 h-80 order-2 md:order-1">
             <h1 class="text-2xl font-light font-inter text-left mb-4">Sign Up</h1>
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="register">
                 <div class="mb-4">
                     <label for="username" class="block text-gray-700 font-medium mb-2">Username</label>
                     <input type="text" id="username" v-model="username" placeholder="antaresrvish"
                         class="shadow border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required />
+                         />
                 </div>
                 <div class="mb-6">
                     <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
                     <div class="relative">
                         <input type="password" id="password" v-model="password" placeholder="yil***56"
                             class="shadow border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required />
+                             />
                         <button type="button" @click="togglePasswordVisibility"
                             class="absolute top-1/2 right-2 transform -translate-y-1/2">
                             <svg v-if="showPassword"
@@ -47,9 +47,10 @@
                         </a>
                     </div>
                 </div>
-                <button @click="register()"
+                <button :disabled="loading"
                     class="bg-[#272D2D] hover:bg-[#23CE6B] duration-300 text-white font-bold w-full py-2 px-4 rounded-lg flex flex-row justify-center">
-                    Register
+                    <span v-if="loading" class="border-4 border-t-white border-white/30 rounded-full w-5 h-5 animate-spin mr-2"></span>
+                    <span v-else>Register</span>
                 </button>
             </form>
         </div>
@@ -58,10 +59,11 @@
             <h1 class="text-gray-200 font-inter text-xl font-bold ">Welcome to</h1>
             <h1 class="text-white text-4xl font-inter flex items-center my-2">
                 <svg class="h-12 w-12 mr-1" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M15 7L8.83447 8.76158C8.52956 8.8487 8.37711 8.89226 8.25117 8.97414C8.13969 9.04662 8.04379 9.1406 7.96907 9.2506C7.88466 9.37485 7.83803 9.5264 7.74477 9.82948L4 22M4 22L16.1705 18.2552C16.4736 18.162 16.6251 18.1153 16.7494 18.0309C16.8594 17.9562 16.9534 17.8603 17.0259 17.7488C17.1077 17.6229 17.1513 17.4704 17.2384 17.1655L19 11M4 22L10.586 15.4139M5 8V2M2 5H8M21.8686 7.86863L18.1314 4.13137C17.7354 3.73535 17.5373 3.53735 17.309 3.46316C17.1082 3.3979 16.8918 3.3979 16.691 3.46316C16.4627 3.53735 16.2646 3.73535 15.8686 4.13137L15.1314 4.86863C14.7354 5.26465 14.5373 5.46265 14.4632 5.69098C14.3979 5.89183 14.3979 6.10817 14.4632 6.30902C14.5373 6.53735 14.7354 6.73535 15.1314 7.13137L18.8686 10.8686C19.2646 11.2646 19.4627 11.4627 19.691 11.5368C19.8918 11.6021 20.1082 11.6021 20.309 11.5368C20.5373 11.4627 20.7354 11.2646 21.1314 10.8686L21.8686 10.1314C22.2646 9.73535 22.4627 9.53735 22.5368 9.30902C22.6021 9.10817 22.6021 8.89183 22.5368 8.69098C22.4627 8.46265 22.2646 8.26465 21.8686 7.86863ZM12 12C13.1046 12 14 12.8954 14 14C14 15.1046 13.1046 16 12 16C10.8954 16 10 15.1046 10 14C10 12.8954 10.8954 12 12 12Z"
-                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                        <path
+                            d="M15 7L8.83447 8.76158C8.52956 8.8487 8.37711 8.89226 8.25117 8.97414C8.13969 9.04662 8.04379 9.1406 7.96907 9.2506C7.88466 9.37485 7.83803 9.5264 7.74477 9.82948L4 22M4 22L16.1705 18.2552C16.4736 18.162 16.6251 18.1153 16.7494 18.0309C16.8594 17.9562 16.9534 17.8603 17.0259 17.7488C17.1077 17.6229 17.1513 17.4704 17.2384 17.1655L19 11M4 22L10.586 15.4139M5 8V2M2 5H8M21.8686 7.86863L18.1314 4.13137C17.7354 3.73535 17.5373 3.53735 17.309 3.46316C17.1082 3.3979 16.8918 3.3979 16.691 3.46316C16.4627 3.53735 16.2646 3.73535 15.8686 4.13137L15.1314 4.86863C14.7354 5.26465 14.5373 5.46265 14.4632 5.69098C14.3979 5.89183 14.3979 6.10817 14.4632 6.30902C14.5373 6.53735 14.7354 6.73535 15.1314 7.13137L18.8686 10.8686C19.2646 11.2646 19.4627 11.4627 19.691 11.5368C19.8918 11.6021 20.1082 11.6021 20.309 11.5368C20.5373 11.4627 20.7354 11.2646 21.1314 10.8686L21.8686 10.1314C22.2646 9.73535 22.4627 9.53735 22.5368 9.30902C22.6021 9.10817 22.6021 8.89183 22.5368 8.69098C22.4627 8.46265 22.2646 8.26465 21.8686 7.86863ZM12 12C13.1046 12 14 12.8954 14 14C14 15.1046 13.1046 16 12 16C10.8954 16 10 15.1046 10 14C10 12.8954 10.8954 12 12 12Z"
+                            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
                 ToDo
             </h1>
             <h1 class="text-gray-200 font-inter text-lg font-light ">Make your ToDo's easily</h1>
@@ -71,7 +73,9 @@
 
 <script>
 import axios from 'axios'
+import { useToast } from 'vue-toastification';
 import messages from '../../utils/messages';
+
 export default {
     name: 'Register',
     data() {
@@ -79,19 +83,31 @@ export default {
             username: '',
             password: '',
             showPassword: false,
+            loading: false,
         }
     },
     methods: {
         async register() {
+            const toast = useToast();
+            if (!this.username || !this.password) {
+                toast.warning("Username and password cannot be empty.");
+                return;
+            }
+
+            this.loading = true;
             try {
                 const response = await axios.post('http://127.0.0.1:3000/users/register', {
                     username: this.username,
                     password: this.password
                 });
+                toast.success("Registration successful!");
                 console.log(messages.SUCCESS_REGISTER, response.data);
                 this.$router.push('/login');
             } catch (error) {
                 console.error(messages.ERROR_SERVER, error);
+                toast.error(error.response?.data?.message || messages.ERROR_SERVER);
+            } finally {
+                this.loading = false;
             }
         },
         togglePasswordVisibility() {

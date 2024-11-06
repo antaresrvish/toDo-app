@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center p-4 z-50 font-inter" @click.self="closeModal">
+    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[3px] flex justify-center items-center p-4 z-50 font-inter" @click.self="closeModal">
         <div class="bg-[#EDF5FC] rounded-lg shadow-lg w-full max-w-md relative p-6">
             <h2 class="text-2xl font-semibold mb-4 text-center flex items-center justify-center">
                 <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center p-4 z-50 font-inter" @click.self="closeModal">
+    <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[3px] flex justify-center items-center p-4 z-50 font-inter" @click.self="closeModal">
         <div class="bg-[#EDF5FC] rounded-lg shadow-lg w-full max-w-md relative p-6">
             <h2 class="text-xl font-bold text-black mb-4">Add New Todo</h2>
         <form @submit.prevent="handleSubmit">
@@ -58,6 +58,7 @@ export default {
                 listId: this.listId,
             });
             this.resetForm();
+            this.closeModal();
         },
         resetForm() {
             this.header = '';
